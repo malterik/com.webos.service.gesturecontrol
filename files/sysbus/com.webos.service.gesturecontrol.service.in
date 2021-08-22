@@ -1,0 +1,5 @@
+[D-BUS Service]
+Name=com.webos.service.gesturecontrol
+Exec=@WEBOS_INSTALL_SBINDIR@/com.webos.service.gesturecontrol
+Type=static
+

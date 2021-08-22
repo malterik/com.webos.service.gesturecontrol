@@ -1,0 +1,16 @@
+{
+    "exeName":"@WEBOS_INSTALL_SBINDIR@/com.webos.service.gesturecontrol",
+    "type": "regular",
+    "allowedNames": [
+        "com.webos.service.gesturecontrol"
+    ],
+    "permissions": [
+        {
+            "service":"com.webos.service.gesturecontrol",
+            "outbound":[
+                "*"
+            ]
+        }
+    ]
+}
+

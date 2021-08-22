@@ -1,0 +1,6 @@
+{
+    "com.webos.service.gesturecontrol.group":[
+        "com.webos.service.gesturecontrol/hello"
+    ]
+}
+
