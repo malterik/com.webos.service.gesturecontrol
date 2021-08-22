@@ -22,7 +22,7 @@ After=ls-hubd.service
 [Service]
 Type=simple
 OOMScoreAdjust=-500
-EnvironmentFile=-/var/systemd/system/env/com.webos.service.gesturecontrolenv
+EnvironmentFile=-/var/systemd/system/env/com.webos.service.gesturecontrol.env
 Environment=CHARSET=UTF-8
 ExecStart=/usr/sbin/com.webos.service.gesturecontrol
 Restart=on-failure
