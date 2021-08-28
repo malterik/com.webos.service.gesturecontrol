@@ -18,7 +18,7 @@ cmake_minimum_required(VERSION 2.8.7)
 project(com.webos.service.gesturecontrol CXX)
 set(CMAKE_BUILD_TYPE Debug)
 
-set(RPLIDAR_LIB CMakeFiles/com.webos.service.gesturecontrol.dir/files/rplidar/librpilidar_sdk.a)
+set(RPLIDAR_LIB ${CMAKE_SRC_DIR}/files/rplidar/librpilidar_sdk.a)
 
 include(webOS/webOS)
 webos_modules_init(1 6 3)
