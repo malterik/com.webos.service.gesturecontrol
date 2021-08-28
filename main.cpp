@@ -221,10 +221,6 @@ int main(int argc, char* argv[])
     g_main_loop_unref(mainLoop);
     mainLoop = nullptr;
 
-    on_finished:
-      RPlidarDriver::DisposeDriver(drv);
-      drv = NULL;
-
     return 0;
 }
 
