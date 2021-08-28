@@ -18,6 +18,8 @@ cmake_minimum_required(VERSION 2.8.7)
 project(com.webos.service.gesturecontrol CXX)
 set(CMAKE_BUILD_TYPE Debug)
 
+set(RPLIDAR_LIB files/rplidar/librpilidar_sdk.a)
+
 include(webOS/webOS)
 webos_modules_init(1 6 3)
 webos_component(0 0 1)
@@ -40,6 +42,7 @@ pkg_check_modules(PBNJSON_CPP REQUIRED pbnjson_cpp)
 include_directories(${PBNJSON_CPP_INCLUDE_DIRS})
 webos_add_compiler_flags(ALL ${PBNJSON_CPP_CFLAGS_OTHER})
 
+include_directories(include/)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 set(SRCS main.cpp)
 
@@ -50,6 +53,7 @@ SET (EXT_LIBS
     ${LUNASERVICE2_LDFLAGS}
     ${PMLOG_LDFLAGS}
     ${PBNJSON_CPP_LDFLAGS}
+    ${RPLIDAR_LIB}
 )
 
 target_link_libraries(${PROJECT_NAME} ${EXT_LIBS})

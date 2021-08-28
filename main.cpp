@@ -19,6 +19,7 @@
 #include <luna-service2/lunaservice.h>
 #include <PmLog.h>
 #include <pbnjson.hpp>
+#include "rplidar.h"
 
 static PmLogContext getPmLogContext()
 {
