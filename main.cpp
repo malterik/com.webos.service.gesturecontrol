@@ -157,12 +157,11 @@ int main(int argc, char* argv[])
     }
     
     if (!checkRPLIDARHealth(drv)) {
-    goto on_finished;
+        fprintf(stderr, "Health failed\n");
     }
 
     if (!connectSuccess) {
         fprintf(stderr, "Error, cannot bind to the specified serial port %s.\n", opt_com_path);
-        goto on_finished;
     }
     PmLogInfo(getPmLogContext(), "SERVICE_MAIN", 0, "start com.webos.service.gesturecontrol");
 
