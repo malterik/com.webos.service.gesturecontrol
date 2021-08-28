@@ -55,7 +55,6 @@ SET (EXT_LIBS
     ${LUNASERVICE2_LDFLAGS}
     ${PMLOG_LDFLAGS}
     ${PBNJSON_CPP_LDFLAGS}
-    ${RPLIDAR_LIB}
 )
 
 target_link_libraries(${PROJECT_NAME} ${EXT_LIBS})
