@@ -21,6 +21,9 @@
 #include <pbnjson.hpp>
 #include "rplidar.h"
 
+using namespace rp::standalone::rplidar;
+using namespace std;
+
 static PmLogContext getPmLogContext()
 {
     static PmLogContext s_context = 0;
@@ -94,8 +97,73 @@ static LSMethod serviceMethods[] = {
     { "hello", onHello }
 };
 
+bool checkRPLIDARHealth(RPlidarDriver* drv) {
+  u_result op_result;
+  rplidar_response_device_health_t healthinfo;
+
+  op_result = drv->getHealth(healthinfo);
+  if (IS_OK(op_result)) {  // the macro IS_OK is the preperred way to judge
+                           // whether the operation is succeed.
+    printf("RPLidar health status : %d\n", healthinfo.status);
+    if (healthinfo.status == RPLIDAR_STATUS_ERROR) {
+      fprintf(stderr,
+              "Error, rplidar internal error detected. Please reboot the "
+              "device to retry.\n");
+      // enable the following code if you want rplidar to be reboot by software
+      // drv->reset();
+      return false;
+    } else {
+      return true;
+    }
+
+  } else {
+    fprintf(stderr, "Error, cannot retrieve the lidar health code: %x\n",
+            op_result);
+    return false;
+  }
+}
+
 int main(int argc, char* argv[])
 {
+    const char* opt_com_path = NULL;
+    _u32 baudrateArray[2] = {115200, 256000};
+    _u32 opt_com_baudrate = 0;
+    u_result op_result;
+    opt_com_path = "/dev/ttyUSB0";
+
+    RPlidarDriver* drv = RPlidarDriver::CreateDriver(DRIVER_TYPE_SERIALPORT);
+    if (!drv) {
+        fprintf(stderr, "insufficent memory, exit\n");
+        exit(-2);
+    }
+
+    rplidar_response_device_info_t devinfo;
+    bool connectSuccess = false;
+    size_t baudRateArraySize =
+      (sizeof(baudrateArray)) / (sizeof(baudrateArray[0]));
+
+    for (size_t i = 0; i < baudRateArraySize; ++i) {
+        if (!drv) drv = RPlidarDriver::CreateDriver(DRIVER_TYPE_SERIALPORT);
+        if (IS_OK(drv->connect(opt_com_path, baudrateArray[i]))) {
+          op_result = drv->getDeviceInfo(devinfo);
+          if (IS_OK(op_result)) {
+            connectSuccess = true;
+            break;
+          } else {
+            delete drv;
+            drv = NULL;
+          }
+        }
+    }
+    
+    if (!checkRPLIDARHealth(drv)) {
+    goto on_finished;
+    }
+
+    if (!connectSuccess) {
+        fprintf(stderr, "Error, cannot bind to the specified serial port %s.\n", opt_com_path);
+        goto on_finished;
+    }
     PmLogInfo(getPmLogContext(), "SERVICE_MAIN", 0, "start com.webos.service.gesturecontrol");
 
     LSError lserror;
