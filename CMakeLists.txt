@@ -44,6 +44,7 @@ webos_add_compiler_flags(ALL ${PBNJSON_CPP_CFLAGS_OTHER})
 
 include_directories(include/)
 include_directories(files/rplidar/src)
+include_directories(${PROJECT_SOURCE_DIR}/files/rplidar/)
 webos_add_compiler_flags(ALL ${RPLIDAR_LIB})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
