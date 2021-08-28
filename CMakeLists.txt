@@ -58,6 +58,7 @@ SET (EXT_LIBS
 )
 
 target_link_libraries(${PROJECT_NAME} ${EXT_LIBS})
+target_link_libraries(${PROJECT_NAME} ${RPLIDAR_LIB})
 
 install(TARGETS ${PROJECT_NAME} DESTINATION ${WEBOS_INSTALL_SBINDIR})
 
